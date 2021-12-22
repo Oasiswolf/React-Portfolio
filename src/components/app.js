@@ -14,20 +14,24 @@ export default class App extends Component {
 
         <Router>
           <div>
+            
             <h1>Nathan Lamb's Portfolio</h1>
+            
             <div>{moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
+            
             <NavigationContainer />
+            
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/About-Me" component={About} />
               <Route path="/Contact" component={Contact} />
               <Route path="/Blog" component={Blog} />
             </Switch>
+
           </div>
+
         </Router>
-
-
-        
+                
       </div>
     );
   }
