@@ -10,15 +10,11 @@ export default class PortfolioContainer extends Component {
         this.state = {
             pageTitle: "Welcome to my Portfolio",
             isLoading: false,
-            data: [
-                {title:"Networking", category: 'Network Setup', slug: 'network'},
-                {title:"MadLibs", category: 'Game', slug: 'game'},
-                {title:"Future Endeavors", category: 'tbd', slug: 'future projects'}]
+            data: []
         }
         console.log("Portfolio container has Rendered!")
 
         // this.handlePageTitleUpdate = this.handlePageTitleUpdate.bind(this)
-        this.getPortfolioItems = this.getPortfolioItems.bind(this)
 
         this.handleFilter = this.handleFilter.bind(this)
     }
@@ -34,7 +30,7 @@ export default class PortfolioContainer extends Component {
     portfolioItems() {
 
         return this.state.data.map(item => {
-            return <PortfolioItem title={item.title} url={"your-link-here.com"} slug={item.slug} />;
+            return <PortfolioItem title={item.name} url={item.url} slug={item.id} />;
         })
     }
 
@@ -42,7 +38,10 @@ export default class PortfolioContainer extends Component {
         axios.get('https://nathanlamb.devcamp.space/portfolio/portfolio_items')
       .then(response => {
         // handle success
-        console.log(response);
+        console.log("response Data", response);
+        this.setState({
+            data: response.data.portfolio_items
+        })
       })
       .catch(error => {
         // handle error
@@ -51,6 +50,10 @@ export default class PortfolioContainer extends Component {
     
       }
     
+    componentDidMount() {
+        this.getPortfolioItems();
+
+    }
 
     // handlePageTitleUpdate() {
     //     this.setState({
@@ -62,7 +65,6 @@ export default class PortfolioContainer extends Component {
         if (this.state.isLoading) {
             return <div>Loading....</div>
         }
-        this.getPortfolioItems();
 
 
         return (
