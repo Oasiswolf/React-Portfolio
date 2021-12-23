@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import PortfolioItem from './portfolioItem'
+import axios from 'axios'
 
+import PortfolioItem from './portfolioItem'
 
 export default class PortfolioContainer extends Component {
 
@@ -17,6 +18,8 @@ export default class PortfolioContainer extends Component {
         console.log("Portfolio container has Rendered!")
 
         // this.handlePageTitleUpdate = this.handlePageTitleUpdate.bind(this)
+        this.getPortfolioItems = this.getPortfolioItems.bind(this)
+
         this.handleFilter = this.handleFilter.bind(this)
     }
 
@@ -35,6 +38,20 @@ export default class PortfolioContainer extends Component {
         })
     }
 
+    getPortfolioItems() {
+        axios.get('https://nathanlamb.devcamp.space/portfolio/portfolio_items')
+      .then(response => {
+        // handle success
+        console.log(response);
+      })
+      .catch(error => {
+        // handle error
+        console.log(error);
+      });
+    
+      }
+    
+
     // handlePageTitleUpdate() {
     //     this.setState({
     //         pageTitle: "This is an AWESOME Portfolio"
@@ -45,6 +62,8 @@ export default class PortfolioContainer extends Component {
         if (this.state.isLoading) {
             return <div>Loading....</div>
         }
+        this.getPortfolioItems();
+
 
         return (
             <div>
