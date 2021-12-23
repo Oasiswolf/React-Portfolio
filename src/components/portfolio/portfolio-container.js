@@ -10,9 +10,9 @@ export default class PortfolioContainer extends Component {
             pageTitle: "Welcome to my Portfolio",
             isLoading: false,
             data: [
-                {title:"Networking", category: 'Network Setup'},
-                {title:"MadLibs", category: 'Game'},
-                {title:"Future Endeavors", category: 'tbd'}]
+                {title:"Networking", category: 'Network Setup', slug: 'network'},
+                {title:"MadLibs", category: 'Game', slug: 'game'},
+                {title:"Future Endeavors", category: 'tbd', slug: 'future projects'}]
         }
         console.log("Portfolio container has Rendered!")
 
@@ -31,7 +31,7 @@ export default class PortfolioContainer extends Component {
     portfolioItems() {
 
         return this.state.data.map(item => {
-            return <PortfolioItem title={item.title} url={"your-link-here.com"}/>;
+            return <PortfolioItem title={item.title} url={"your-link-here.com"} slug={item.slug} />;
         })
     }
 
