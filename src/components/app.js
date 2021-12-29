@@ -9,6 +9,7 @@ import Contact from './pages/contact'
 import Blog from './pages/blog'
 import PortfolioDetail from './portfolio/portfolio-detail'
 import Auth from './pages/auth'
+import PortfolioManager from './pages/portfolio-manager';
 import NoMatch from './pages/no-match'
 
 
@@ -22,6 +23,7 @@ export default class App extends Component {
     }
 
     this.handleSuccessfulLogin = this.handleSuccessfulLogin.bind(this)
+    this.handleSuccessfulLogout = this.handleSuccessfulLogout.bind(this)
     this.handleUnSuccessfulLogin = this.handleUnSuccessfulLogin.bind(this)
   }
 
@@ -31,6 +33,12 @@ handleSuccessfulLogin() {
   })
 }
 handleUnSuccessfulLogin() {
+  this.setState({
+    loggedInStatus: "NOT_LOGGED_IN"
+  })
+}
+
+handleSuccessfulLogout() {
   this.setState({
     loggedInStatus: "NOT_LOGGED_IN"
   })
@@ -57,6 +65,11 @@ componentDidMount() {
   this.checkLoginStatus()
 }
 
+authorizedPages() {
+  return [<Route path="/portfolio-manager" component={PortfolioManager} />
+]
+}
+
   render() {
     return (
       <div className='container'>
@@ -64,9 +77,10 @@ componentDidMount() {
         <Router>
           <div>
                       
-            <NavigationContainer />
-
-            <h2>{this.state.loggedInStatus}</h2>
+            <NavigationContainer 
+            loggedInStatus={this.state.loggedInStatus}
+            handleSuccessfulLogout={this.handleSuccessfulLogout}
+            />
             
             <Switch>
               <Route exact path="/" component={Home} />
@@ -79,6 +93,7 @@ componentDidMount() {
               <Route path="/About-Me" component={About} />
               <Route path="/Contact" component={Contact} />
               <Route path="/Blog" component={Blog} />
+              {this.state.loggedInStatus === "LOGGED_IN" ? this.authorizedPages() : null}
               <Route exact path="/portfolio/:slug" component={PortfolioDetail} />
               <Route component={NoMatch} />
             </Switch>

@@ -1,12 +1,29 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
+import axios from 'axios'
+import { withRouter } from 'react-router'
 
-export default class NavigationContainer extends Component {
-    constructor() {
-        super()
+const NavigationContainer = (props) => {
+
+    const dynamicLink = (route, linkText) => {
+        return (
+            <div className="nav-link-wrapper">
+                <NavLink exact to={route} activeClassName='nav-link-active'>
+                    {linkText}
+                </NavLink>
+            </div>
+        )
     }
-
-    render() {
+    const handleSignOut = () => {
+        axios.delete("https://api.devcamp.space/logout", {withCredentials: true })
+        .then(response => {
+            if(response.status === 200) {
+                props.history.push("/")
+                props.handleSuccessfulLogout()
+            }
+            return response.data;
+        }).catch(error => {console.log("Error signing out", error)})
+    }
 
         return(
 
@@ -32,10 +49,18 @@ export default class NavigationContainer extends Component {
                             Blog
                         </NavLink>
                     </div>
+
+                    {props.loggedInStatus === "LOGGED_IN" ? dynamicLink("/portfolio-manager", "Portfolio Manager"): null}
+
+                    
                 </div>
-                <div className="right-side">Nathaniel Lamb Portfolio</div>
+                <div className="right-side">
+                    Nathaniel Lamb Portfolio  
+
+                    {props.loggedInStatus === "LOGGED_IN" ?<a onClick={handleSignOut}>SignOut</a> : null }
+                </div>
                 {false ? <button>Add Blog</button> : null}                
             </div>
         )
     }
-}
+export default withRouter(NavigationContainer);
