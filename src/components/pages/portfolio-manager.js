@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 
 import PortfolioSidebar from '../portfolio/portfolio-sidebar'
+import PortfolioForm from '../portfolio/portfolio-form'
 
 export default class PortfolioManager extends Component {
     constructor() {
@@ -9,6 +10,16 @@ export default class PortfolioManager extends Component {
         this.state ={
             portfolioItems: []
         }
+        this.handleSuccessfulFormSubmit = this.handleSuccessfulFormSubmit.bind(this)
+        this.handleFormSubmitError = this.handleFormSubmitError.bind(this)
+    }
+
+    handleSuccessfulFormSubmit(portfolioItem) {
+
+    }
+
+    handleFormSubmitError(error) {
+        console.log("handleFormSubmitError", error)
     }
 
     getPortfolioItems() {
@@ -27,7 +38,10 @@ export default class PortfolioManager extends Component {
         return(
             <div className="portfolio-manager-wrapper">
                 <div className="left-column">
-                <h1>Portfolio Form ..</h1>
+                <PortfolioForm 
+                    handleSuccessfulFormSubmit = {this.handleSuccessfulFormSubmit}
+                    handleFormSubmitError = {this.handleFormSubmitError}
+                />
 
                 </div>
                 <div className="right-column">
