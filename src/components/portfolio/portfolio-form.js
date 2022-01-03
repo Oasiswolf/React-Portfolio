@@ -9,7 +9,7 @@ export default class PortfolioForm extends Component {
             name: "",
             description: "",
             url: "",
-            category: "",
+            category: "Networking",
             position: "",
             thumb_image: "",
             banner_image: "",
@@ -40,7 +40,7 @@ handleSubmit(event){
     // https://nathanlamb.devcamp.space/portfolio/portfolio_items
     axios.post("https://nathanlamb.devcamp.space/portfolio/portfolio_items",
     this.buildForm(), { withCredentials: true }
-    ).then(response => {console.log("response", response)}
+    ).then(response => {this.props.handleSuccessfulFormSubmit(response.data.portfolio_item)}
     ).catch(error => {console.log("portfolio from handleSubmit error", error)})
 
     this.buildForm();
