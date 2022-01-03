@@ -75,15 +75,18 @@ handleSubmit(event){
                         placeholder="Position"
                         value={this.state.position}
                         onChange={this.handleChange} />
-                        <input
-                        type="text"
+                        <select
                         name="category"
-                        placeholder="Category"
                         value={this.state.category}
-                        onChange={this.handleChange} />
+                        onChange={this.handleChange}>
+                            <option value="Networking">Networking</option>
+                            <option value="Webpage Manager">Webpage Manager</option>
+                            <option value="Future Endevers">Future Endevers</option>
+
+                        </select>    
                     </div>
                     <div>
-                    <input
+                    <textarea
                         type="text"
                         name="description"
                         placeholder="Description"
