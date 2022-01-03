@@ -66,7 +66,7 @@ componentDidMount() {
 }
 
 authorizedPages() {
-  return [<Route path="/portfolio-manager" component={PortfolioManager} />
+  return [<Route key="portfolio_manager" path="/portfolio-manager" component={PortfolioManager} />
 ]
 }
 
