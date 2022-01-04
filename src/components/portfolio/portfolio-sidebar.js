@@ -14,7 +14,6 @@ const PortfolioSidebar = props => {
     })
     return (
         <div className="portfolio-sidebar-wrapper">
-            <h2>Portfolio Items List</h2>
            {portfolioList}
         </div>
     )
