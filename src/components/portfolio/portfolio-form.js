@@ -20,6 +20,8 @@ export default class PortfolioForm extends Component {
             banner_image: "",
             logo: ""
         }
+
+
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.componentConfig = this.componentConfig.bind(this)
@@ -27,6 +29,8 @@ export default class PortfolioForm extends Component {
         this.handleThumbDrop = this.handleThumbDrop.bind(this)
         this.handleBannerDrop = this.handleBannerDrop.bind(this)
         this.handleLogoDrop = this.handleLogoDrop.bind(this)
+
+
 
         this.thumbRef = React.createRef();
         this.bannerRef = React.createRef();
@@ -38,11 +42,13 @@ export default class PortfolioForm extends Component {
             addedfile: file => this.setState({ thumb_image: file })
         }
     }
+
     handleBannerDrop() {
         return {
             addedfile: file => this.setState({ banner_image: file })
         }
     }
+
     handleLogoDrop() {
         return {
             addedfile: file => this.setState({ logo: file })
@@ -110,9 +116,10 @@ export default class PortfolioForm extends Component {
             })
            
             [this.thumbRef, this.bannerRef, this.logoRef].forEach(ref => {
-                ref.current.dropzone.removeAllFiles();
+                ref.current.dropzone.removeAllFiles()
+            });
         })
-        }).catch(error => {console.log("portfolio form handleSubmit error", error)})
+        .catch(error => {console.log("portfolio form handleSubmit error", error)})
         
         event.preventDefault();
 
@@ -163,27 +170,27 @@ export default class PortfolioForm extends Component {
                         onChange={this.handleChange} />
                     </div>
                     <div className="imguploader">
+                        
                         <DropzoneComponent
                             ref={this.thumbRef}
                             config={this.componentConfig()}
                             djsConfig={this.djsConfig()}
                             eventHandlers={this.handleThumbDrop()}>
+                        </DropzoneComponent>
 
-                            </DropzoneComponent>
                         <DropzoneComponent
                             ref={this.bannerRef}
                             config={this.componentConfig()}
                             djsConfig={this.djsConfig()}
                             eventHandlers={this.handleBannerDrop()}>
+                        </DropzoneComponent>
 
-                            </DropzoneComponent>
                         <DropzoneComponent
                             ref={this.logoRef}
                             config={this.componentConfig()}
                             djsConfig={this.djsConfig()}
                             eventHandlers={this.handleLogoDrop()}>
-
-                            </DropzoneComponent>
+                        </DropzoneComponent>
                     </div>
 
                     <div>
