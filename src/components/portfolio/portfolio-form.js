@@ -102,7 +102,8 @@ export default class PortfolioForm extends Component {
     handleSubmit(event){
         // https://nathanlamb.devcamp.space/portfolio/portfolio_items
         axios.post("https://nathanlamb.devcamp.space/portfolio/portfolio_items", this.buildForm(), { withCredentials: true })
-        .then(response => {this.props.handleSuccessfulFormSubmit(response.data.portfolio_item)
+        .then(response => {
+            this.props.handleSuccessfulFormSubmit(response.data.portfolio_item);
             
             this.setState({
                 name: "",
@@ -113,9 +114,11 @@ export default class PortfolioForm extends Component {
                 thumb_image: "",
                 banner_image: "",
                 logo: ""
-            })
+            });
            
-            [this.thumbRef, this.bannerRef, this.logoRef].forEach(ref => {ref.current.dropzone.removeAllFiles()});
+            [this.thumbRef, this.bannerRef, this.logoRef].forEach(ref => {
+                ref.current.dropzone.removeAllFiles()
+            });
         })
         .catch(error => {console.log("portfolio form handleSubmit error", error)})
         

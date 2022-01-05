@@ -24,6 +24,7 @@
         a {
             color: $grey;
             text-decoration: none;
+            font-weight: 600;
         }
 
         &:hover {
@@ -33,7 +34,26 @@
         }
     }
     .right-side {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        grid-gap: 6px;
         font-size: 1.25rem;
         color: navy;
+        .nametag {
+            font-weight: 600;
+            transition: 0.5s ease-in-out;
+            &:hover{
+                color: blue;
+            }
+        }
+        .signoutIcon {
+            transition: 0.5s ease-in-out;
+
+            &:hover {
+                color: fuchsia;
+                cursor: crosshair;
+            }
+        }
     }
 }

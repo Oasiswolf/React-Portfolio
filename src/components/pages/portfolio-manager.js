@@ -8,12 +8,23 @@ export default class PortfolioManager extends Component {
     constructor() {
         super()
         this.state ={
-            portfolioItems: []
+            portfolioItems: [],
+            portfolioToEdit: {},
         }
         this.handleSuccessfulFormSubmit = this.handleSuccessfulFormSubmit.bind(this)
         this.handleFormSubmitError = this.handleFormSubmitError.bind(this)
         this.handleDeleteClick = this.handleDeleteClick.bind(this)
+        this.handleUpdate = this.handleUpdate.bind(this)
     }
+
+
+    handleUpdate(portfolioItem) {
+        this.setState({
+            portfolioToEdit: portfolioItem
+        })
+
+    }
+
 
     handleDeleteClick(portfolioItem) {
         axios.delete(`https://api.devcamp.space/portfolio/portfolio_items/${portfolioItem.id}`,
@@ -65,6 +76,7 @@ export default class PortfolioManager extends Component {
                 </div>
                 <div className="right-column">
                     <PortfolioSidebar
+                    update={this.handleUpdate}
                     delete={this.handleDeleteClick}
                     data={this.state.portfolioItems}
                     />
