@@ -18,7 +18,10 @@ export default class PortfolioForm extends Component {
             position: "",
             thumb_image: "",
             banner_image: "",
-            logo: ""
+            logo: "",
+            editMode: false,
+            apiUrl: "https://nathanlamb.devcamp.space/portfolio/portfolio_items",
+            apiAction: 'post'
         }
 
 
@@ -58,6 +61,9 @@ export default class PortfolioForm extends Component {
                 category: category || "Networking",
                 position: position || "",
                 url: url || "",
+                editMode: true,
+                apiUrl: `https://nathanlamb.devcamp.space/portfolio/portfolio_items/${id}`,
+                apiAction: "patch"
             })
         }
     }
@@ -126,9 +132,18 @@ export default class PortfolioForm extends Component {
 
     handleSubmit(event){
         // https://nathanlamb.devcamp.space/portfolio/portfolio_items
-        axios.post("https://nathanlamb.devcamp.space/portfolio/portfolio_items", this.buildForm(), { withCredentials: true })
+        axios({
+            method: this.state.apiAction,
+            url: this.state.apiUrl,
+            data: this.buildForm(),
+            withCredentials: true
+        })
         .then(response => {
-            this.props.handleSuccessfulFormSubmit(response.data.portfolio_item);
+            if(this.state.editMode) {
+                this.props.handleEditFormSubmit();
+            }else{
+                this.props.handleNewFormSubmit(response.data.portfolio_item);
+            };
             
             this.setState({
                 name: "",
@@ -138,7 +153,10 @@ export default class PortfolioForm extends Component {
                 position: "",
                 thumb_image: "",
                 banner_image: "",
-                logo: ""
+                logo: "",
+                editMode: true,
+                apiUrl: `https://nathanlamb.devcamp.space/portfolio/portfolio_items`,
+                apiAction: "post"
             });
            
             [this.thumbRef, this.bannerRef, this.logoRef].forEach(ref => {
