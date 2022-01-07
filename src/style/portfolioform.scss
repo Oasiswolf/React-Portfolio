@@ -13,6 +13,30 @@
         display: grid;
         grid-template-columns: 200px 200px 200px;
         grid-gap: 21px;
+
+        .form-image-wrapper {
+            img {
+                width: 100%;
+                height: 120px;
+                object-fit: cover;
+                border-radius: 5px;
+            }
+
+            .img-delete-link {
+                display: flex;
+                justify-content: center;
+                font-weight: 900;
+                color: $warning;
+                cursor: pointer;
+                font-size: 30px;
+                
+                    &:hover {
+                        color: blue;
+                        transition: 0.5s ease-in-out;
+                    }
+               
+            }
+        }
     
     }
 }
