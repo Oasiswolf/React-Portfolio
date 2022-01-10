@@ -21,7 +21,15 @@ class Blog extends Component {
         this.onScroll = this.onScroll.bind(this)
         window.addEventListener("scroll", this.onScroll, false)
         this.handleModalClose = this.handleModalClose.bind(this)
+        this.handleModalOpen = this.handleModalOpen.bind(this)
         this.handleNewBlogPost = this.handleNewBlogPost.bind(this)
+    }
+
+    handleNewBlogPost(blog) {
+        this.setState({
+            blogModalIsOpen: false,
+            blogItems: [blog].concat(this.state.blogItems)
+        })
     }
 
     handleModalClose() {
@@ -30,7 +38,7 @@ class Blog extends Component {
         })
     }
 
-    handleNewBlogPost() {
+    handleModalOpen() {
         this.setState({
             blogModalIsOpen: true,
         })
@@ -92,9 +100,10 @@ class Blog extends Component {
                 <FontAwesomeIcon
                     icon="plus-square"                    
                     className='load-icon'
-                    onClick={this.handleNewBlogPost}
+                    onClick={this.handleModalOpen}
                     />
                     <BlogModal 
+                    handleNewBlogPost={this.handleNewBlogPost}
                     modalIsOpen={this.state.blogModalIsOpen}
                     modalClose={this.handleModalClose}
                     />
