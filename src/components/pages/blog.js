@@ -1,42 +1,65 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+import { Link } from 'react-router-dom'
 
 import BlogItem from '../blog/blog-item'
+import BlogModal from '../modals/blog-modal'
 
-export default class Blog extends Component {
+class Blog extends Component {
     constructor(){
         super()
 
-        this.state ={
+        this.state = {
             blogItems: [],
             totalCount: 0,
             currentPage: 0,
             isLoading: true,
+            blogModalIsOpen: false,
         }
         this.getBlogItems = this.getBlogItems.bind(this)
-        this.activateInfiniteScroll()
+        this.onScroll = this.onScroll.bind(this)
+        window.addEventListener("scroll", this.onScroll, false)
+        this.handleModalClose = this.handleModalClose.bind(this)
+        this.handleNewBlogPost = this.handleNewBlogPost.bind(this)
     }
 
-    activateInfiniteScroll() {
-        window.onscroll = () => {
-            if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
-                console.log("get more posts loaded unless done!")
-            }
+    handleModalClose() {
+        this.setState ({
+            blogModalIsOpen: false,
+        })
+    }
+
+    handleNewBlogPost() {
+        this.setState({
+            blogModalIsOpen: true,
+        })
+    }
+
+    onScroll() {
+        if (this.state.isLoading || this.state.blogItems.length === this.state.totalCount){
+            return;
+        }
+
+        if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+            console.log("get more posts loaded unless done!");
+            this.getBlogItems();
         }
     }
 
     getBlogItems() {
-        this.setState({
-            currentPage: this.state.currentPage + 1
-        });
 
-        axios.get("https://NathanLamb.devcamp.space/portfolio/portfolio_blogs",
-        { withCredentials: true }
-        ).then(response => {
+        this.setState({
+                currentPage: this.state.currentPage + 1
+            });
+            
+        axios.get(`https://nathanlamb.devcamp.space/portfolio/portfolio_blogs?page=${this.state.currentPage}`, {
+            withCredentials: true
+        })
+        .then(response => {
+            console.log("response", response)
             this.setState({
-                blogItems: response.data.portfolio_blogs,
+                blogItems: this.state.blogItems.concat( response.data.portfolio_blogs),
                 totalCount: response.data.meta.total_records,
                 isLoading: false,
             })
@@ -46,8 +69,12 @@ export default class Blog extends Component {
         })
     }
 
-    compnonentWillMount() {
-        this.getBlogItems()
+
+    componentWillMount() {
+        this.getBlogItems();
+    }
+    componentWillUnmount() {
+        window.removeEventListener("scroll", this.onScroll, false)
     }
 
 
@@ -61,15 +88,35 @@ export default class Blog extends Component {
         return (
             <div className="blog-container">
                 <h1>Blog</h1>
-            <div className="content-container">
-                {blogRecords}
-            </div>
-            {this.state.isLoading ? (
-                <div clasName="contentLoader">
-                    <FontAwesomeIcon icon="spinner" spin  />
-                </div>)
-                : null }
+                <div className="modal-div">
+                <FontAwesomeIcon
+                    icon="plus-square"                    
+                    className='load-icon'
+                    onClick={this.handleNewBlogPost}
+                    />
+                    <BlogModal 
+                    modalIsOpen={this.state.blogModalIsOpen}
+                    modalClose={this.handleModalClose}
+                    />
+                </div>
+
+                <div className="content-container">
+                    {blogRecords}
+                </div>
+                {this.state.isLoading ? (
+                <div className="content-loader">
+                    <FontAwesomeIcon
+                    icon="spinner"
+                    spin
+                    pulse
+                    className='load-icon'
+                    />
+                </div>) : null }
+                <Link to="/about">Read about me!</Link>
             </div>
         )
     }
 }
+
+
+export default Blog;

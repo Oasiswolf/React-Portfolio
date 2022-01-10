@@ -19,11 +19,11 @@ const PortfolioSidebar = props => {
                     <div className="sidebarActions">
 
                         <a className="updateItem" onClick={() => props.update(portfolioItem)}>
-                            <FontAwesomeIcon icon="edit" pull='down' />
+                            <FontAwesomeIcon icon="edit"  />
                         </a>
 
                         <a className="deleteIcon" onClick={() => props.delete(portfolioItem)}>
-                            <FontAwesomeIcon icon="trash" pull='down' />
+                            <FontAwesomeIcon icon="trash"  />
                         </a>
                     </div>
                 

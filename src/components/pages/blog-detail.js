@@ -9,10 +9,11 @@ export default class BlogDetail extends Component {
             currentId: this.props.match.params.slug,
             blogItem: {}
         }
+        this.getBlogItems = this.getBlogItems.bind(this)
     }
 
-    getBlogItem() {
-        axios.get(`https://NathanLamb.devcamp.space/portfolio/portfolio_blogs/${this.state.currentId}`
+    getBlogItems() {
+        axios.get(`https://nathanlamb.devcamp.space/portfolio/portfolio_blogs/${this.state.currentId}`
         ).then(response => {
             this.setState ({
                 blogItem: response.data.portfolio_blog
@@ -23,8 +24,8 @@ export default class BlogDetail extends Component {
         })
     }
 
-    componentDidMount() {
-        this.getBlogItem()
+    componentWillMount() {
+        this.getBlogItems();
     }
 
 
