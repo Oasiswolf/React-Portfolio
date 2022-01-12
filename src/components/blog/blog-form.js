@@ -16,22 +16,26 @@ export default class BlogForm extends Component {
     }
 
     buildForm() {
-        let formData = new FormData()
+        let formData = new FormData();
+
         formData.append("portfolio_blog[title]", this.state.title);
         formData.append("portfolio_blog[blog_status]", this.state.blog_status);
+        
         return formData;
     }
 
     handleSubmitModal(event) {
         axios.post("https://nathanlamb.devcamp.space/portfolio/portfolio_blogs", this.buildForm(), { withCredentials: true })
-        .then(response => {
-            this.props.formsubmit(response.data.portfolio_blog),
-            this.setState({
-                title: "",
-                blog_status: "",
+
+            .then(response => {
+                this.props.formSubmit(response.data.portfolio_blog),
+                this.setState({
+                    title: "",
+                    blog_status: "",
+                })
             })
-        })
-        .catch(error => {console.log("error submitting Modal", error)})
+
+            .catch(error => {console.log("error submitting Modal", error)})
         event.preventDefault();
     }
 
@@ -45,15 +49,16 @@ export default class BlogForm extends Component {
             <form onSubmit={ this.handleSubmitModal } className="blog-form-wrapper">
                 <div className="two-column">
                     <input 
-                        onChange={this.handleChange} 
                         type="text" 
+                        onChange={this.handleChange} 
                         name="title"
-                        placeholder='Title'
+                        placeholder='Blog Title'
                         value={this.state.title}
                     />
+
                     <input 
-                        onChange={this.handleChange} 
                         type="text" 
+                        onChange={this.handleChange} 
                         name="blog_status"
                         placeholder='Blog Status'
                         value={this.state.blog_status}

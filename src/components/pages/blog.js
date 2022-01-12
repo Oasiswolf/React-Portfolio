@@ -45,7 +45,8 @@ class Blog extends Component {
     }
 
     onScroll() {
-        if (this.state.isLoading || this.state.blogItems.length === this.state.totalCount){
+        if (this.state.isLoading || 
+            this.state.blogItems.length === this.state.totalCount){
             return;
         }
 
@@ -65,7 +66,7 @@ class Blog extends Component {
             withCredentials: true
         })
         .then(response => {
-            console.log("response", response)
+            console.log("getting", response)
             this.setState({
                 blogItems: this.state.blogItems.concat( response.data.portfolio_blogs),
                 totalCount: response.data.meta.total_records,
@@ -95,17 +96,17 @@ class Blog extends Component {
 
         return (
             <div className="blog-container">
+                    <BlogModal 
+                    handleNewBlogPost={this.handleNewBlogPost}
+                    modalIsOpen={this.state.blogModalIsOpen}
+                    modalClose={this.handleModalClose}
+                    />
                 <h1>Blog</h1>
                 <div className="modal-div">
                 <FontAwesomeIcon
                     icon="plus-square"                    
                     className='load-icon'
                     onClick={this.handleModalOpen}
-                    />
-                    <BlogModal 
-                    handleNewBlogPost={this.handleNewBlogPost}
-                    modalIsOpen={this.state.blogModalIsOpen}
-                    modalClose={this.handleModalClose}
                     />
                 </div>
 
