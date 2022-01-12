@@ -2,6 +2,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+
+    .modal-div {
+        position: fixed;
+        right: 0;
+        top: 100px;
+
+        a {
+            font-size: 3em;
+            cursor: crosshair;
+            color: navy;
+            margin-right: 30px;
+            // margin-top: 30px;
+            transition: 0.5s ease-in-out;
+
+            &:hover {
+                color: blue;
+
+            }
+        }
+    }
 
     .content-container{
         display: flex;

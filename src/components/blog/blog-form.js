@@ -28,7 +28,8 @@ export default class BlogForm extends Component {
         axios.post("https://nathanlamb.devcamp.space/portfolio/portfolio_blogs", this.buildForm(), { withCredentials: true })
 
             .then(response => {
-                this.props.formSubmit(response.data.portfolio_blog),
+                this.props.formSubmit(response.data.portfolio_blog);
+                
                 this.setState({
                     title: "",
                     blog_status: "",

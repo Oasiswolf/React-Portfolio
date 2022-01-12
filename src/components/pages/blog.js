@@ -79,7 +79,7 @@ class Blog extends Component {
     }
 
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.getBlogItems();
     }
     componentWillUnmount() {
@@ -103,12 +103,16 @@ class Blog extends Component {
                     />
                 <h1>Blog</h1>
                 <div className="modal-div">
-                <FontAwesomeIcon
-                    icon="plus-square"                    
-                    className='load-icon'
-                    onClick={this.handleModalOpen}
-                    />
-                </div>
+                    {this.props.loggedInStatus === "LOGGED_IN" ? 
+                        <a onClick={this.handleModalOpen}>
+                            <FontAwesomeIcon
+                                icon="plus-square"                    
+                                // className='load-icon'
+                            />
+
+                        </a> : null 
+                    }
+                </div> 
 
                 <div className="content-container">
                     {blogRecords}
