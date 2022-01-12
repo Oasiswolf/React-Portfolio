@@ -53,7 +53,7 @@ handleSuccessfulLogout() {
 checkLoginStatus(){
   return axios.get("https://api.devcamp.space/logged_in", { withCredentials: true })
   .then(response => {
-    const loggedIn = response.data.logge_in
+    const loggedIn = response.data.logged_in
     const loggedInStatus = this.state.loggedInStatus
 
     if (loggedIn && loggedInStatus === "LOGGED_IN"){
@@ -61,7 +61,7 @@ checkLoginStatus(){
     } else if (loggedIn && loggedInStatus === "NOT_LOGGED_IN") {
       this.setState({loggedInStatus: "LOGGED_IN"})
     } else if (!loggedIn && loggedInStatus === "LOGGED_IN") {
-      loggedInStatus: "NOT_LOGGED_IN"
+      this.setState({loggedInStatus: "NOT_LOGGED_IN"})
     } 
   })
   .catch(error => {console.log("Error", error)})
@@ -72,8 +72,12 @@ componentDidMount() {
 }
 
 authorizedPages() {
-  return [<Route key="portfolio_manager" path="/portfolio-manager" component={PortfolioManager} />
-]
+  return [
+    <Route 
+      key="portfolio_manager" 
+      path="/portfolio-manager" 
+      component={PortfolioManager} />
+  ]
 }
 
   render() {
@@ -84,18 +88,21 @@ authorizedPages() {
           <div>
                       
             <NavigationContainer 
-            loggedInStatus={this.state.loggedInStatus}
-            handleSuccessfulLogout={this.handleSuccessfulLogout}
+              loggedInStatus={this.state.loggedInStatus}
+              handleSuccessfulLogout={this.handleSuccessfulLogout}
             />
             
             <Switch>
               <Route exact path="/" component={Home} />
               <Route 
-              path="/auth" 
-              render={props =>(<Auth{...props}
-              handleSuccessfulLogin={this.handleSuccessfulLogin}
-              handleUnSuccessfulLogin={this.handleUnSuccessfulLogin}
-              />) } />
+                path="/auth" 
+                render={props =>(
+                  <Auth{...props}
+                    handleSuccessfulLogin={this.handleSuccessfulLogin}
+                    handleUnSuccessfulLogin={this.handleUnSuccessfulLogin}
+                  />
+                )} 
+              />
               <Route path="/About-Me" component={About} />
               <Route path="/Contact" component={Contact} />
               <Route path="/Blog" component={Blog} />
