@@ -1,27 +1,27 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { DropzoneComponent } from 'react-dropzone-component';
+import React, { Component } from "react";
+import axios from "axios";
+import { DropzoneComponent } from "react-dropzone-component";
 
-import '../../../node_modules/react-dropzone-component/styles/filepicker.css';
-import '../../../node_modules/dropzone/dist/min/dropzone.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import "../../../node_modules/react-dropzone-component/styles/filepicker.css";
+import "../../../node_modules/dropzone/dist/min/dropzone.min.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default class PortfolioForm extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			name: '',
-			description: '',
-			url: '',
-			category: 'Networking',
-			position: '',
-			thumb_image: '',
-			banner_image: '',
-			logo: '',
+			name: "",
+			description: "",
+			url: "",
+			category: "Networking",
+			position: "",
+			thumb_image: "",
+			banner_image: "",
+			logo: "",
 			editMode: false,
-			apiUrl: 'https://nathanlamb.devcamp.space/portfolio/portfolio_items',
-			apiAction: 'post',
+			apiUrl: "https://nathanlamb.devcamp.space/portfolio/portfolio_items",
+			apiAction: "post",
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -46,9 +46,9 @@ export default class PortfolioForm extends Component {
 			)
 			.then((response) => {
 				this.setState({
-					[`${imageType}_url`]: '',
+					[`${imageType}_url`]: "",
 				}).catch((error) => {
-					console.log('DeleteImage Error', error);
+					console.log("DeleteImage Error", error);
 				});
 			});
 	}
@@ -69,17 +69,17 @@ export default class PortfolioForm extends Component {
 			this.props.clearPortfolioEdit();
 			this.setState({
 				id: id,
-				name: name || '',
-				desciption: desciption || '',
-				category: category || 'Networking',
-				position: position || '',
-				url: url || '',
+				name: name || "",
+				desciption: desciption || "",
+				category: category || "Networking",
+				position: position || "",
+				url: url || "",
 				editMode: true,
 				apiUrl: `https://nathanlamb.devcamp.space/portfolio/portfolio_items/${id}`,
-				apiAction: 'patch',
-				thumb_image_url: thumb_image_url || '',
-				banner_image_url: banner_image_url || '',
-				logo_url: logo_url || '',
+				apiAction: "patch",
+				thumb_image_url: thumb_image_url || "",
+				banner_image_url: banner_image_url || "",
+				logo_url: logo_url || "",
 			});
 		}
 	}
@@ -104,9 +104,9 @@ export default class PortfolioForm extends Component {
 
 	componentConfig() {
 		return {
-			iconFiletypes: ['.jpg', '.png'],
+			iconFiletypes: [".jpg", ".png"],
 			showFiletypeIcon: true,
-			postUrl: 'https://httpbin.org/post',
+			postUrl: "https://httpbin.org/post",
 		};
 	}
 
@@ -119,22 +119,28 @@ export default class PortfolioForm extends Component {
 
 	buildForm() {
 		let formData = new FormData();
-		formData.append('portfolio_item[name]', this.state.name);
-		formData.append('portfolio_item[description]', this.state.description);
-		formData.append('portfolio_item[url]', this.state.url);
-		formData.append('portfolio_item[category]', this.state.category);
-		formData.append('portfolio_item[position]', this.state.position);
+		formData.append("portfolio_item[name]", this.state.name);
+		formData.append("portfolio_item[description]", this.state.description);
+		formData.append("portfolio_item[url]", this.state.url);
+		formData.append("portfolio_item[category]", this.state.category);
+		formData.append("portfolio_item[position]", this.state.position);
 
 		if (this.state.thumb_image) {
-			formData.append('portfolio_item[thumb_image]', this.state.thumb_image);
+			formData.append(
+				"portfolio_item[thumb_image]",
+				this.state.thumb_image
+			);
 		}
 
 		if (this.state.banner_image) {
-			formData.append('portfolio_item[banner_image]', this.state.banner_image);
+			formData.append(
+				"portfolio_item[banner_image]",
+				this.state.banner_image
+			);
 		}
 
 		if (this.state.logo) {
-			formData.append('portfolio_item[logo]', this.state.logo);
+			formData.append("portfolio_item[logo]", this.state.logo);
 		}
 
 		return formData;
@@ -158,21 +164,23 @@ export default class PortfolioForm extends Component {
 				if (this.state.editMode) {
 					this.props.handleEditFormSubmit();
 				} else {
-					this.props.handleNewFormSubmit(response.data.portfolio_item);
+					this.props.handleNewFormSubmit(
+						response.data.portfolio_item
+					);
 				}
 
 				this.setState({
-					name: '',
-					description: '',
-					url: '',
-					category: 'Networking',
-					position: '',
-					thumb_image: '',
-					banner_image: '',
-					logo: '',
+					name: "",
+					description: "",
+					url: "",
+					category: "Networking",
+					position: "",
+					thumb_image: "",
+					banner_image: "",
+					logo: "",
 					editMode: true,
 					apiUrl: `https://nathanlamb.devcamp.space/portfolio/portfolio_items`,
-					apiAction: 'post',
+					apiAction: "post",
 				});
 
 				[this.thumbRef, this.bannerRef, this.logoRef].forEach((ref) => {
@@ -180,7 +188,7 @@ export default class PortfolioForm extends Component {
 				});
 			})
 			.catch((error) => {
-				console.log('portfolio form handleSubmit error', error);
+				console.log("portfolio form handleSubmit error", error);
 			});
 
 		event.preventDefault();
@@ -188,59 +196,64 @@ export default class PortfolioForm extends Component {
 
 	render() {
 		return (
-			<form className='portfolio-form-wrapper' onSubmit={this.handleSubmit}>
-				<div className='two-column'>
+			<form
+				className="portfolio-form-wrapper"
+				onSubmit={this.handleSubmit}
+			>
+				<div className="two-column">
 					<input
-						type='text'
-						name='name'
-						placeholder='Portfolio Item Name'
+						type="text"
+						name="name"
+						placeholder="Portfolio Item Name"
 						value={this.state.name}
 						onChange={this.handleChange}
 					/>
 					<input
-						type='text'
-						name='url'
-						placeholder='URL'
+						type="text"
+						name="url"
+						placeholder="URL"
 						value={this.state.url}
 						onChange={this.handleChange}
 					/>
 				</div>
-				<div className='two-column'>
+				<div className="two-column">
 					<input
-						type='text'
-						name='position'
-						placeholder='Position'
+						type="text"
+						name="position"
+						placeholder="Position"
 						value={this.state.position}
 						onChange={this.handleChange}
 					/>
 					<select
-						className='select-element'
-						name='category'
+						className="select-element"
+						name="category"
 						value={this.state.category}
 						onChange={this.handleChange}
 					>
-						<option value='Networking'>Networking</option>
-						<option value='Webpage Manager'>Webpage Manager</option>
-						<option value='Future Endevers'>Future Endevers</option>
+						<option value="Networking">Networking</option>
+						<option value="Webpage Manager">Webpage Manager</option>
+						<option value="Future Endevers">Future Endevers</option>
 					</select>
 				</div>
-				<div className='one-column'>
+				<div className="one-column">
 					<textarea
-						type='text'
-						name='description'
-						placeholder='Description'
+						type="text"
+						name="description"
+						placeholder="Description"
 						value={this.state.description}
 						onChange={this.handleChange}
 					/>
 				</div>
-				<div className='imguploader'>
+				<div className="imguploader">
 					{this.state.thumb_image_url && this.state.editMode ? (
-						<div className='form-image-wrapper'>
+						<div className="form-image-wrapper">
 							<img src={this.state.thumb_image_url} />
-							<div className='img-delete-link'>
+							<div className="img-delete-link">
 								<FontAwesomeIcon
-									icon={'file-upload'}
-									onClick={() => this.deleteImage('thumb_image')}
+									icon={"file-upload"}
+									onClick={() =>
+										this.deleteImage("thumb_image")
+									}
 								/>
 							</div>
 						</div>
@@ -251,17 +264,19 @@ export default class PortfolioForm extends Component {
 							djsConfig={this.djsConfig()}
 							eventHandlers={this.handleThumbDrop()}
 						>
-							<div className='dz-message'>ThumbNail</div>
+							<div className="dz-message">ThumbNail</div>
 						</DropzoneComponent>
 					)}
 
 					{this.state.banner_image_url && this.state.editMode ? (
-						<div className='form-image-wrapper'>
+						<div className="form-image-wrapper">
 							<img src={this.state.banner_image_url} />
-							<div className='img-delete-link'>
+							<div className="img-delete-link">
 								<FontAwesomeIcon
-									icon={'file-upload'}
-									onClick={() => this.deleteImage('banner_image')}
+									icon={"file-upload"}
+									onClick={() =>
+										this.deleteImage("banner_image")
+									}
 								/>
 							</div>
 						</div>
@@ -272,17 +287,17 @@ export default class PortfolioForm extends Component {
 							djsConfig={this.djsConfig()}
 							eventHandlers={this.handleBannerDrop()}
 						>
-							<div className='dz-message'>Banner</div>
+							<div className="dz-message">Banner</div>
 						</DropzoneComponent>
 					)}
 
 					{this.state.logo_url && this.state.editMode ? (
-						<div className='form-image-wrapper'>
+						<div className="form-image-wrapper">
 							<img src={this.state.logo_url} />
-							<div className='img-delete-link'>
+							<div className="img-delete-link">
 								<FontAwesomeIcon
-									icon={'file-upload'}
-									onClick={() => this.deleteImage('logo')}
+									icon={"file-upload"}
+									onClick={() => this.deleteImage("logo")}
 								/>
 							</div>
 						</div>
@@ -293,13 +308,13 @@ export default class PortfolioForm extends Component {
 							djsConfig={this.djsConfig()}
 							eventHandlers={this.handleLogoDrop()}
 						>
-							<div className='dz-message'>Logo</div>
+							<div className="dz-message">Logo</div>
 						</DropzoneComponent>
 					)}
 				</div>
 
 				<div>
-					<button className='btn' type='submit'>
+					<button className="btn" type="submit">
 						Save
 					</button>
 				</div>

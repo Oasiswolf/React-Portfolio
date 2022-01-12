@@ -1,11 +1,65 @@
 .blog-form-wrapper {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 21px;
-    padding: 42px;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-gap: 21px;
+	padding: 35px;
+	position: relative;
+	background-color: lightslategray;
+	color: navy;
+	font-family: "Times New Roman", Times, serif;
 
-    @include input-element();
-    input {
-        margin-bottom: 0px;
-    }
+	@include input-element();
+
+	input {
+		margin-bottom: 0px;
+	}
+	.blogTitle {
+		font-family: "Times New Roman", Times, serif;
+		color: white;
+		font-weight: 600;
+
+		&:focus {
+			color: blue;
+			font-weight: 700;
+		}
+	}
+	.status-selector {
+		font-family: "Times New Roman", Times, serif;
+		color: white;
+	}
+
+	.imgUpLoader {
+		display: grid;
+		grid-template-columns: 175px;
+		grid-gap: 15px;
+		padding: 15px;
+	}
+
+	.modalbtn {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		width: 100px;
+		position: absolute;
+		bottom: 115px;
+		left: 300px;
+
+		cursor: pointer;
+		height: 42px;
+		font-size: 1.5em;
+		font-weight: 700;
+		border: 1px solid transparent;
+		transition: all 0.5s ease-in-out;
+		background-color: $teal;
+		color: navy;
+
+		&:active,
+		&:focus {
+			outline: none;
+		}
+		&:hover {
+			background-color: $dark-teal;
+		}
+	}
 }

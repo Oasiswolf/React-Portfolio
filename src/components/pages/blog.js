@@ -79,7 +79,7 @@ class Blog extends Component {
     }
 
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.getBlogItems();
     }
     componentWillUnmount() {
