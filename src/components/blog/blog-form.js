@@ -84,6 +84,7 @@ export default class BlogForm extends Component {
 					this.featuredImageRef.current.dropzone.removeAllFiles();
 				}
 				this.setState({
+					id: "",
 					title: "",
 					blog_status: "",
 					content: "",
@@ -97,6 +98,15 @@ export default class BlogForm extends Component {
 				console.log("error submitting Modal", error);
 			});
 		event.preventDefault();
+	}
+	UNSAFE_componentWillMount() {
+		if (this.props.edit) {
+			this.setState({
+				id: this.props.editBlog.id,
+				title: this.props.editBlog.title,
+				status: this.props.editBlog.status,
+			});
+		}
 	}
 
 	handleChange(event) {
@@ -132,6 +142,12 @@ export default class BlogForm extends Component {
 				<div className="one-column">
 					<RichTextEditor
 						handleEditorChange={this.handleRichTextEdit}
+						editMode={this.props.edit}
+						contentToEdit={
+							this.props.edit && this.props.editBlog.content
+								? this.props.editBlog.content
+								: null
+						}
 					/>
 				</div>
 
