@@ -367,7 +367,7 @@
 .rdw-embedded-modal {
 	position: absolute;
 	top: 35px;
-	left: 5px;
+	left: -110px;
 	display: flex;
 	flex-direction: column;
 	width: 235px;
@@ -471,7 +471,7 @@
 	overflow: auto;
 	position: absolute;
 	top: 35px;
-	left: 5px;
+	left: -155px;
 	display: flex;
 	flex-wrap: wrap;
 	width: 235px;
@@ -549,7 +549,7 @@
 .rdw-image-modal {
 	position: absolute;
 	top: 35px;
-	left: 5px;
+	left: -200px;
 	display: flex;
 	flex-direction: column;
 	width: 235px;
@@ -819,11 +819,11 @@
 }
 .rdw-editor-toolbar {
 	padding: 6px 5px 0;
-	border-radius: 2px;
-	border: 1px solid #f1f1f1;
+	border-radius: 5px;
+	border: 1px solid lightskyblue;
 	display: flex;
 	justify-content: flex-start;
-	background: white;
+	background: lightskyblue;
 	flex-wrap: wrap;
 	font-size: 15px;
 	margin-bottom: 5px;
@@ -871,6 +871,7 @@
 	position: relative;
 	border-radius: 5px;
 	border: 1px solid lightskyblue;
+	background-color: lightskyblue;
 }
 .DraftEditor-editorContainer {
 	background-color: rgba(255, 255, 255, 0);
