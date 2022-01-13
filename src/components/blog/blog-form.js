@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { DropzoneComponent } from "react-dropzone-component";
-
-// import '../../../node_modules/react-dropzone-component/styles/filepicker.css';
-// import '../../../node_modules/dropzone/dist/min/dropzone.min.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import RichTextEditor from "../forms/rich-text-editor";
 
@@ -12,21 +10,39 @@ export default class BlogForm extends Component {
 		super(props);
 
 		this.state = {
+			id: "",
 			title: "",
 			blog_status: "",
 			content: "",
 			featured_image: "",
+			apiUrl: "https://nathanlamb.devcamp.space/portfolio/portfolio_blogs",
+			apiAction: "post",
 		};
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmitModal = this.handleSubmitModal.bind(this);
 		this.handleRichTextEdit = this.handleRichTextEdit.bind(this);
+		this.deleteImage = this.deleteImage.bind(this);
 
 		this.componentConfig = this.componentConfig.bind(this);
 		this.djsConfig = this.djsConfig.bind(this);
 		this.handleFeaturedImageDrop = this.handleFeaturedImageDrop.bind(this);
 
 		this.featuredImageRef = React.createRef();
+	}
+
+	deleteImage(imageType) {
+		axios
+			.delete(
+				`https://api.devcamp.space/portfolio/delete-portfolio-blog-image/${this.props.blog.id}?image_type=${imageType}`,
+				{ withCredentials: true }
+			)
+			.then((response) => {
+				this.props.blogImageDelete();
+			})
+			.catch((error) => {
+				console.log("DeleteImage Error", error);
+			});
 	}
 
 	componentConfig() {
@@ -72,26 +88,29 @@ export default class BlogForm extends Component {
 	}
 
 	handleSubmitModal(event) {
-		axios
-			.post(
-				"https://nathanlamb.devcamp.space/portfolio/portfolio_blogs",
-				this.buildForm(),
-				{ withCredentials: true }
-			)
-
+		axios({
+			method: this.state.apiAction,
+			url: this.state.apiUrl,
+			data: this.buildForm(),
+			withCredentials: true,
+		})
 			.then((response) => {
 				if (this.state.featured_image) {
 					this.featuredImageRef.current.dropzone.removeAllFiles();
 				}
 				this.setState({
-					id: "",
 					title: "",
 					blog_status: "",
 					content: "",
 					featured_image: "",
 				});
 
-				this.props.formSubmit(response.data.portfolio_blog);
+				if (this.props.edit) {
+					// update blog details
+					this.props.formUpdateSubmit(response.data.portfolio_blog);
+				} else {
+					this.props.formSubmit(response.data.portfolio_blog);
+				}
 			})
 
 			.catch((error) => {
@@ -102,9 +121,12 @@ export default class BlogForm extends Component {
 	UNSAFE_componentWillMount() {
 		if (this.props.edit) {
 			this.setState({
-				id: this.props.editBlog.id,
-				title: this.props.editBlog.title,
-				status: this.props.editBlog.status,
+				id: this.props.blog.id,
+				title: this.props.blog.title,
+				blog_status: this.props.blog.blog_status,
+				content: this.props.blog.content,
+				apiUrl: `https://nathanlamb.devcamp.space/portfolio/portfolio_blogs/${this.props.blog.id}`,
+				apiAction: "patch",
 			});
 		}
 	}
@@ -144,22 +166,36 @@ export default class BlogForm extends Component {
 						handleEditorChange={this.handleRichTextEdit}
 						editMode={this.props.edit}
 						contentToEdit={
-							this.props.edit && this.props.editBlog.content
-								? this.props.editBlog.content
+							this.props.edit && this.props.blog.content
+								? this.props.blog.content
 								: null
 						}
 					/>
 				</div>
 
 				<div className="imgUpLoader">
-					<DropzoneComponent
-						ref={this.featuredImageRef}
-						config={this.componentConfig()}
-						djsConfig={this.djsConfig()}
-						eventHandlers={this.handleFeaturedImageDrop()}
-					>
-						<div className="dz-message">Featured Image</div>
-					</DropzoneComponent>
+					{this.props.edit && this.props.blog.featured_image_url ? (
+						<div className="form-image-wrapper">
+							<img src={this.props.blog.featured_image_url} />
+							<div className="img-delete-link">
+								<FontAwesomeIcon
+									icon={"file-upload"}
+									onClick={() =>
+										this.deleteImage("featured_image")
+									}
+								/>
+							</div>
+						</div>
+					) : (
+						<DropzoneComponent
+							ref={this.featuredImageRef}
+							config={this.componentConfig()}
+							djsConfig={this.djsConfig()}
+							eventHandlers={this.handleFeaturedImageDrop()}
+						>
+							<div className="dz-message">Featured Image</div>
+						</DropzoneComponent>
+					)}
 				</div>
 				<button className="modalbtn">Save</button>
 			</form>
