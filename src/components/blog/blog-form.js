@@ -12,7 +12,7 @@ export default class BlogForm extends Component {
 		this.state = {
 			id: "",
 			title: "",
-			blog_status: "",
+			blog_status: "draft",
 			content: "",
 			featured_image: "",
 			apiUrl: "https://nathanlamb.devcamp.space/portfolio/portfolio_blogs",
@@ -100,7 +100,7 @@ export default class BlogForm extends Component {
 				}
 				this.setState({
 					title: "",
-					blog_status: "",
+					blog_status: "draft",
 					content: "",
 					featured_image: "",
 				});
@@ -152,14 +152,15 @@ export default class BlogForm extends Component {
 						value={this.state.title}
 					/>
 
-					<input
+					<select
 						className="status-selector"
-						type="text"
-						onChange={this.handleChange}
 						name="blog_status"
-						placeholder="Blog Status Published or Draft REQUIRED"
+						onChange={this.handleChange}
 						value={this.state.blog_status}
-					/>
+					>
+						<option value="draft">Draft</option>
+						<option value="published">Published</option>
+					</select>
 				</div>
 				<div className="one-column">
 					<RichTextEditor

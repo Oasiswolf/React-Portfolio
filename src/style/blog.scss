@@ -1,73 +1,75 @@
 .blog-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
 
-    .modal-div {
-        position: fixed;
-        right: 0;
-        top: 100px;
+	.admin-blog-wrapper {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 
-        a {
-            font-size: 3em;
-            cursor: crosshair;
-            color: navy;
-            margin-right: 30px;
-            // margin-top: 30px;
-            transition: 0.5s ease-in-out;
+		a {
+			margin-left: 15px;
+		}
+	}
 
-            &:hover {
-                color: blue;
+	.modal-div {
+		position: fixed;
+		right: 0;
+		top: 100px;
 
-            }
-        }
-    }
+		a {
+			font-size: 3em;
+			cursor: crosshair;
+			color: navy;
+			margin-right: 30px;
+			// margin-top: 30px;
+			transition: 0.5s ease-in-out;
 
-    .content-container{
-        display: flex;
-        flex-direction: column;
-        width: 800px;
+			&:hover {
+				color: blue;
+			}
+		}
+	}
 
-        h1 {
-            font-size: 1.5em;
-        }
+	.content-container {
+		display: flex;
+		flex-direction: column;
+		width: 800px;
 
-        a {
-            text-decoration: none;
-            color: $teal;
-            transition: 0.5s ease-in-out;
+		h1 {
+			font-size: 1.5em;
+		}
 
-            &:hover {
-                color: $dark-teal;
-            }
-        }
+		a {
+			text-decoration: none;
+			color: $teal;
+			transition: 0.5s ease-in-out;
 
+			&:hover {
+				color: $dark-teal;
+			}
+		}
 
-        .featuredImg{
-            img {
-                margin: 15px 0px;
-                width: 100%;
-                height: 350px;
-                border-radius: 4px;
-                object-fit: cover;
-            }
+		.featuredImg {
+			img {
+				margin: 15px 0px;
+				width: 100%;
+				height: 350px;
+				border-radius: 4px;
+				object-fit: cover;
+			}
+		}
 
+		.content {
+			display: flex;
+			flex-direction: column;
 
-        }
-
-        .content{
-            display: flex;
-            flex-direction: column;
-            
-
-            margin: 25px;
-            width: 75%;
-            border: 1px solid navy;
-            border-radius: 5px;
-        }
-
-
-    }
-
+			margin: 25px;
+			width: 75%;
+			border: 1px solid navy;
+			border-radius: 5px;
+		}
+	}
 }

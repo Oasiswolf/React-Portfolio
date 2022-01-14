@@ -1,45 +1,55 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class PortfolioItem extends Component {
-    constructor(props) {
-        super(props) 
-        this.state = {
-            portfolioItemClass: ""
-        }
-        this.handleMouseOver = this.handleMouseOver.bind(this)
-        this.handleMouseOut = this.handleMouseOut.bind(this)
-    }
+	constructor(props) {
+		super(props);
 
-    handleMouseOver() {
-        this.setState({portfolioItemClass: "image-blur"})
-    }    
+		this.state = {
+			portfolioItemClass: "",
+		};
+	}
 
-    handleMouseOut() {
-        this.setState ({ portfolioItemClass: "" })
-    }
+	handleMouseOver() {
+		this.setState({ portfolioItemClass: "image-blur" });
+	}
 
-        // Data thats Needed 
-        // background img : thumb_image_url
-        // logo
-        // Description
-        // id
-    render() {
-        const { id, description, thumb_image_url, logo_url } = this.props.item;
-        return (
-            <div className="portfolio-item-wrapper"
-            onMouseEnter={() => this.handleMouseOver()}
-            onMouseLeave={() => this.handleMouseOut()}
-            >
-                <div 
-                className={"portfolio-img-background " + this.state.portfolioItemClass }
-                style={{ backgroundImage: "url("+thumb_image_url+")"}}  />
-                <div className="img-text-wrapper">
-                    <div className="logo-wrapper">
-                        <img src={logo_url} />
-                    </div>
-                    <div className="subtitle">{description}</div>
-                </div>
-        </div>
-        )
-    }
+	handleMouseOut() {
+		this.setState({ portfolioItemClass: "" });
+	}
+
+	// Data thats Needed
+	// background img : thumb_image_url
+	// logo
+	// Description
+	// id
+	render() {
+		const { id, description, thumb_image_url, logo_url } = this.props.item;
+
+		return (
+			<Link to={`/portfolio/${id}`}>
+				<div
+					className="portfolio-item-wrapper"
+					onMouseEnter={() => this.handleMouseOver()}
+					onMouseLeave={() => this.handleMouseOut()}
+				>
+					<div
+						className={
+							"portfolio-img-background " +
+							this.state.portfolioItemClass
+						}
+						style={{
+							backgroundImage: "url(" + thumb_image_url + ")",
+						}}
+					/>
+					<div className="img-text-wrapper">
+						<div className="logo-wrapper">
+							<img src={logo_url} />
+						</div>
+						<div className="subtitle">{description}</div>
+					</div>
+				</div>
+			</Link>
+		);
+	}
 }

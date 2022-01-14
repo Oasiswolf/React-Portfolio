@@ -1,16 +1,93 @@
 .auth-page-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: calc(100vh - 84px);
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	height: calc(100vh - 84px);
 
-    .left-column {
-        background-size: cover;
-    }
+	.left-column {
+		background-size: cover;
+	}
 
-    .right-column {
-        display:flex;
-        justify-content: center;
-        align-items: center;
-        background-color: $offwhite;
-    }
+	.right-column {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: $offwhite;
+	}
+}
+
+.signin-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+	font-size: 0.75em;
+
+	h1 {
+		margin-bottom: 45px;
+	}
+
+	.auth-form-wrapper {
+		display: grid;
+		grid-gap: 30px;
+		justify-content: center;
+		align-items: center;
+
+		.email-wrapper {
+			display: flex;
+			grid-gap: 10px;
+
+			input {
+				width: 250px;
+				font-family: "Times New Roman", Times, serif;
+			}
+			svg {
+				font-size: 2em;
+				color: lime;
+
+				&:hover {
+					color: blue;
+				}
+			}
+		}
+
+		.password-wrapper {
+			display: flex;
+			grid-gap: 10px;
+
+			input {
+				width: 250px;
+				font-family: "Times New Roman", Times, serif;
+			}
+			svg {
+				font-size: 2em;
+				color: lime;
+
+				&:hover {
+					color: blue;
+				}
+			}
+		}
+
+		.btnDiv {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			.subBtn {
+				width: 40%;
+				height: 50px;
+				font-family: "Bilbo Swash Caps", cursive;
+				font-size: 3em;
+				font-weight: 600;
+				color: blue;
+				background-color: lightslategrey;
+
+				&:hover {
+					background-color: navy;
+					color: lime;
+				}
+			}
+		}
+	}
 }
