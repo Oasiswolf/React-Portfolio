@@ -14,5 +14,6 @@
 	.image-wrapper {
 		display: grid;
 		grid-template-columns: 1fr 3fr 1fr;
+		max-height: 250px;
 	}
 }
