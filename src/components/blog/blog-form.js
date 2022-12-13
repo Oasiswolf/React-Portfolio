@@ -140,8 +140,7 @@ export default class BlogForm extends Component {
 		return (
 			<form
 				onSubmit={this.handleSubmitModal}
-				className="blog-form-wrapper"
-			>
+				className="blog-form-wrapper">
 				<div className="two-column">
 					<input
 						className="blogTitle"
@@ -156,8 +155,7 @@ export default class BlogForm extends Component {
 						className="status-selector"
 						name="blog_status"
 						onChange={this.handleChange}
-						value={this.state.blog_status}
-					>
+						value={this.state.blog_status}>
 						<option value="draft">Draft</option>
 						<option value="published">Published</option>
 					</select>
@@ -192,8 +190,7 @@ export default class BlogForm extends Component {
 							ref={this.featuredImageRef}
 							config={this.componentConfig()}
 							djsConfig={this.djsConfig()}
-							eventHandlers={this.handleFeaturedImageDrop()}
-						>
+							eventHandlers={this.handleFeaturedImageDrop()}>
 							<div className="dz-message">Featured Image</div>
 						</DropzoneComponent>
 					)}
